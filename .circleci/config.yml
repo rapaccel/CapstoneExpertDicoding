@@ -1,24 +1,25 @@
 version: 2.1
 
-orbs:
-  android: circleci/android@2.1.1
-
 jobs:
   build:
-    executor:
-      name: android/android-machine
-      tag: 2022.10.2
+    docker:
+      - image: cimg/android:2023.04.1  # ✅ Ganti ke image Docker resmi
+    working_directory: ~/project
     steps:
       - checkout
+
       - run:
-          name: Grant permissions
+          name: Set Gradle permission
           command: chmod +x ./gradlew
+
       - run:
           name: Download Dependencies
           command: ./gradlew dependencies
+
       - run:
           name: Build Debug APK
           command: ./gradlew assembleDebug
+
       - run:
           name: Run Unit Tests
           command: ./gradlew test
