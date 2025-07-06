@@ -14,4 +14,4 @@ class DetailViewModel @Inject constructor(private val moviesUseCase: MoviesUseCa
         viewModelScope.launch {
             moviesUseCase.setFavoriteMovies(movies, newStatus)
         }
-}
+}   

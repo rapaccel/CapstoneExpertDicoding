@@ -2,6 +2,7 @@ package com.example.mycapstonesubmission.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,14 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= FragmentHomeBinding.inflate(inflater, container, false)
+        _binding= FragmentHomeBinding.inflate(inflater, container, false)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(
@@ -63,6 +65,7 @@ class HomeFragment : Fragment() {
                         is UiState.Error -> {
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(context, "Error Occured", Toast.LENGTH_SHORT).show()
+                            Log.e("HomeFragment", movies.message.toString())
                         }
                     }
                 }
@@ -73,6 +76,11 @@ class HomeFragment : Fragment() {
                 adapter = moviesAdapter
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

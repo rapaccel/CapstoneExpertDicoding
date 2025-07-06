@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    debugImplementation (libs.leakcanary.android)
 //    hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
@@ -54,6 +55,8 @@ dependencies {
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     androidTestImplementation(libs.room.testing)
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 
 //    coroutines
     implementation(libs.kotlinx.coroutines.core)
@@ -67,4 +70,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.truth)
+
 }

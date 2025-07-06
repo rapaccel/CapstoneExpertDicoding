@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mycapstonesubmission.core.ui.MoviesAdapter
+import com.example.mycapstonesubmission.databinding.FragmentHomeBinding
 import com.example.mycapstonesubmission.detail.DetailActivity
 import com.example.mycapstonesubmission.di.FavoriteModuleDependencies
 import com.example.mycapstonesubmission.favorite.databinding.FragmentFavoriteBinding
@@ -20,7 +21,9 @@ import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
-    private lateinit var binding: FragmentFavoriteBinding
+    private var _binding: FragmentFavoriteBinding? = null
+    private val binding get() = _binding!!
+
     @Inject
     lateinit var factory: ViewModelFactory
     private val viewModel: FavoriteViewModel by viewModels {
@@ -41,7 +44,7 @@ class FavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(
@@ -73,6 +76,11 @@ class FavoriteFragment : Fragment() {
                 adapter = moviesAdapter
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
