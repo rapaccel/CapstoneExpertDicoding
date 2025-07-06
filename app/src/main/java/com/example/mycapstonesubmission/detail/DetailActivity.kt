@@ -53,7 +53,7 @@ class DetailActivity : AppCompatActivity() {
         val iconRes = if (isFavorite) {
             R.drawable.favorite_red
         } else {
-            R.drawable.outline_favorite_24
+            R.drawable.outline_favorite
         }
         binding.ivFavorite.setImageResource(iconRes)
     }
